@@ -22,7 +22,7 @@ const corsOptions = {
 }
 
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
+app.options('{*path}', cors(corsOptions));
 
 // app.use(cors({
 //   origin: process.env.FRONTEND_URL || 'http://localhost:5173',
