@@ -7,7 +7,6 @@ import Ingest from './controllers/Ingest.js';
 import Ask from './controllers/Ask.js';
 import Reset from './controllers/Reset.js';
 import router from './routes/Route.js';
-import { option } from 'motion/react-client';
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;
