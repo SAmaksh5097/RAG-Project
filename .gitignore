@@ -1,0 +1,52 @@
+# =========================
+# Node / Backend
+# =========================
+/backend/node_modules/
+/backend/dist/
+/backend/build/
+/backend/.turbo/
+/backend/logs
+/backend/*.log
+/backend/npm-debug.log*
+/backend/yarn-debug.log*
+/backend/yarn-error.log*
+/backend/.env
+/backend/.env.local
+/backend/.env.*.local
+/backend/.DS_Store
+/backend/Thumbs.db
+
+# AI / LLM / Embeddings cache
+/backend/.ollama/
+ /backend/.cache/
+ /backend/embeddings_cache/
+
+# =========================
+# Frontend (React / Next / Vite)
+# =========================
+/frontend/node_modules/
+/frontend/dist/
+/frontend/build/
+/frontend/.next/
+/frontend/.turbo/
+/frontend/.vite/
+/frontend/logs
+/frontend/*.log
+/frontend/.env
+/frontend/.env.local
+/frontend/.env.*.local
+/frontend/.DS_Store
+/frontend/Thumbs.db
+
+# =========================
+# Shared / General
+# =========================
+.vscode/
+*.code-workspace
+.DS_Store
+Thumbs.db
+
+# npm / yarn / pnpm locks (optional: you might want to commit one of these)
+/package-lock.json
+/yarn.lock
+/pnpm-lock.yaml
