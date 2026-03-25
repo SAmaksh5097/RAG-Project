@@ -1,17 +1,19 @@
-import { OllamaEmbeddings } from "@langchain/ollama";
 import {MongoDBAtlasVectorSearch} from "@langchain/mongodb";
 import dotenv from "dotenv";
 import {ChatGroq} from "@langchain/groq";
-
+import {CohereEmbeddings} from "@langchain/cohere";
 dotenv.config();
 
 // 1. Setup Local AI Models
 
 async function setupAI(collection){
     try{
-        const embeddings = new OllamaEmbeddings({
-          model: "nomic-embed-text",
-          baseUrl: "http://localhost:11434",
+        const embeddings = new CohereEmbeddings({
+            apiKey: process.env.COHERE_API_KEY,
+        //   model: "nomic-embed-text",
+        //   baseUrl: "http://localhost:11434",
+        model:"embed-english-v3.0",
+        inputType: "search-document"
         });
 
         const model = new ChatGroq({
