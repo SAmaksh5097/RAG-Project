@@ -7,17 +7,29 @@ import Ingest from './controllers/Ingest.js';
 import Ask from './controllers/Ask.js';
 import Reset from './controllers/Reset.js';
 import router from './routes/Route.js';
+import { option } from 'motion/react-client';
 
 dotenv.config();
 const PORT = process.env.PORT || 5000;
 const app = express();
 
-app.use(cors({
+const corsOptions = {
   origin: process.env.FRONTEND_URL || 'http://localhost:5173',
   methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type'],
+  allowedHeaders: ['Content-Type','Authorization'],
   credentials: true,
-}));
+  optionSuccessStatus: 200
+}
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
+
+// app.use(cors({
+//   origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+//   methods: ['GET', 'POST', 'OPTIONS'],
+//   allowedHeaders: ['Content-Type'],
+//   credentials: true,
+// }));
 app.use(express.json());
 
 app.use('/api', router);
