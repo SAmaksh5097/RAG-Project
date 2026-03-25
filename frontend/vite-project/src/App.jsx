@@ -2,6 +2,7 @@ import Header from './components/Header'
 import IngestForm from './components/IngestForm'
 import AskForm from './components/AskForm'
 import ResetButton from './components/ResetButton'
+import Footer from './components/Footer'
 
 function App() {
   const handleIngestSuccess = () => {}
@@ -19,6 +20,9 @@ function App() {
           <ResetButton onSuccess={handleResetSuccess} onError={handleError} />
         </div>
         <AskForm onError={handleError} onAnswer={handleAskSuccess} />
+      </section>
+      <section>
+        <Footer/>
       </section>
     </main>
   )
