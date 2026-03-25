@@ -3,7 +3,7 @@ import MessageCard from './MessageCard'
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:5000'
 
-const AskForm = ({ onSuccess, onError, onAnswer }) => {
+const AskForm = ({ onError, onAnswer }) => {
   const [question, setQuestion] = useState('')
   const [isAsking, setIsAsking] = useState(false)
   const [conversation, setConversation] = useState([])
@@ -65,15 +65,15 @@ const AskForm = ({ onSuccess, onError, onAnswer }) => {
   }
 
   return (
-    <article className="card">
-      <h2>2. Ask Questions</h2>
-      <p className="card-copy">
+    <article className="rounded-2xl border border-[#cdbfae] bg-black p-4 text-white shadow-[0_18px_30px_rgba(22,21,18,0.09)] md:rounded-[20px] md:p-[22px]">
+      <h2 className="mb-1 text-[clamp(1.2rem,2vw,1.55rem)] font-semibold leading-[1.2]">2. Ask Questions</h2>
+      <p className="mb-4 text-[#595047]">
         Ask a question and get an answer generated from the most relevant chunk.
       </p>
 
-      <div className="conversation-container" style={{ maxHeight: '400px', overflowY: 'auto', marginBottom: '20px', padding: '10px', border: '1px solid #ddd', borderRadius: '4px' }}>
+      <div className="mb-5 flex max-h-[400px] flex-col gap-3 overflow-y-auto rounded-xl border border-[#ddd] bg-[#f5f5f5] p-4">
         {conversation.length === 0 ? (
-          <p style={{ color: '#999', fontStyle: 'italic' }}>No messages yet. Start asking questions!</p>
+          <p className="italic text-[#999]">No messages yet. Start asking questions!</p>
         ) : (
           conversation.map((msg, index) => (
             <MessageCard key={index} message={msg.text} type={msg.type} />
@@ -82,16 +82,21 @@ const AskForm = ({ onSuccess, onError, onAnswer }) => {
         <div ref={messagesEndRef} />
       </div>
 
-      <form onSubmit={handleAsk} className="form-block">
-        <label htmlFor="question">Question</label>
+      <form onSubmit={handleAsk} className="grid gap-[10px]">
+        <label htmlFor="question" className="text-[0.85rem] uppercase tracking-[0.08em] text-[#3d3127]">Question</label>
         <textarea
           id="question"
           placeholder="What does the support policy say about weekend on-call?"
           value={question}
           onChange={(event) => setQuestion(event.target.value)}
           rows={5}
+          className="min-h-[120px] w-full resize-y rounded-xl border border-[#cfc5b8] bg-[#fffefc] px-3 py-[11px] text-[0.96rem] leading-[1.45] text-[#1e1a16] outline-none transition focus:border-transparent focus:ring-2 focus:ring-[#d67a41]"
         />
-        <button type="submit" disabled={!readyToAsk || isAsking}>
+        <button
+          type="submit"
+          disabled={!readyToAsk || isAsking}
+          className="rounded-full bg-gradient-to-r from-[#d36135] to-[#bf4e27] px-4 py-[11px] text-[0.95rem] font-bold text-white transition hover:-translate-y-[1px] hover:shadow-[0_8px_18px_rgba(191,78,39,0.35)] disabled:cursor-not-allowed disabled:opacity-60"
+        >
           {isAsking ? 'Thinking...' : 'Ask backend'}
         </button>
       </form>
