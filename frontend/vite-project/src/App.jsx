@@ -1,36 +1,24 @@
-import './App.css'
 import Header from './components/Header'
 import IngestForm from './components/IngestForm'
 import AskForm from './components/AskForm'
 import ResetButton from './components/ResetButton'
 
 function App() {
-  const handleIngestSuccess = (message) => {
-    // Ingest success handled
-  }
-
-  const handleError = (errorMessage) => {
-    // Error handled
-  }
-
-  const handleAskSuccess = (result) => {
-    // Ask success handled
-  }
-
-  const handleResetSuccess = (message) => {
-    // Reset success handled
-  }
+  const handleIngestSuccess = () => {}
+  const handleError = () => {}
+  const handleAskSuccess = () => {}
+  const handleResetSuccess = () => {}
 
   return (
-    <main className="page-shell">
+    <main className="mx-auto min-h-svh w-full max-w-[1060px] px-4 pb-6 pt-6 md:px-7 md:pb-9 md:pt-12">
       <Header />
 
-      <section className="grid">
-        <div>
+      <section className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-[18px]">
+        <div className="space-y-3">
           <IngestForm onSuccess={handleIngestSuccess} onError={handleError} />
           <ResetButton onSuccess={handleResetSuccess} onError={handleError} />
         </div>
-        <AskForm onSuccess={handleAskSuccess} onError={handleError} onAnswer={handleAskSuccess} />
+        <AskForm onError={handleError} onAnswer={handleAskSuccess} />
       </section>
     </main>
   )
