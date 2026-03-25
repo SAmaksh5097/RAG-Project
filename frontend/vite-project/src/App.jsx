@@ -3,6 +3,7 @@ import IngestForm from './components/IngestForm'
 import AskForm from './components/AskForm'
 import ResetButton from './components/ResetButton'
 import Footer from './components/Footer'
+import UserProfile from './components/UserProfile'
 
 function App() {
   const handleIngestSuccess = () => {}
@@ -11,7 +12,8 @@ function App() {
   const handleResetSuccess = () => {}
 
   return (
-    <main className="mx-auto min-h-svh w-full max-w-[1060px] px-4 pb-6 pt-6 md:px-7 md:pb-9 md:pt-12">
+    <main className="mx-auto  w-full max-w-[1060px] px-4 pb-6 pt-6 md:px-7 md:pb-9 md:pt-12">
+      <UserProfile/>
       <Header />
 
       <section className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-[18px]">

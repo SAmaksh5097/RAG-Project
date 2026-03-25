@@ -1,13 +1,19 @@
-import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
-async function Ask(req,res,vectorStore, model){
-    try {
-    const { question } = req.body;
-    
-    // 1. Log what we are looking for
-    console.log(`Querying for: ${question}`);
+async function Ask(req, res, vectorStore, model) {
+  try {
+    const { question, userId } = req.body;
 
-    // 2. Perform search with a higher 'k' to ensure we capture the new info
-    const searchResults = await vectorStore.similaritySearch(question, 10);
+    if (!userId) {
+      return res.status(400).json({ error: 'User ID is required.' });
+    }
+
+    // 1. Log what we are looking for
+    console.log(`Querying for: ${question} (User: ${userId})`);
+
+    // 2. Perform search with a higher 'k' to ensure we capture relevant info
+    const allResults = await vectorStore.similaritySearch(question, 10);
+    
+    // 3. Filter results by userId from metadata
+    const searchResults = allResults.filter((doc) => doc.metadata && doc.metadata.userId === userId);
     console.log(`Docs found: ${searchResults.length}`);
     // DEBUG: See what is actually going to the LLM
     // console.log("Context being sent:", searchResults.map(r => r.pageContent));
