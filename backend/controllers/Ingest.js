@@ -3,7 +3,11 @@ async function Ingest(req, res, collection, vectorStore) {
   try {
     const { text, userId } = req.body;
 
+    
+    
+
     if (!text || typeof text !== 'string' || !text.trim()) {
+      
       return res.status(400).json({ error: 'Text is required for ingestion.' });
     }
 
@@ -29,6 +33,7 @@ async function Ingest(req, res, collection, vectorStore) {
 
     res.json({ message: 'Knowledge base updated!' });
   } catch (error) {
+    console.log("errorfinal",error);
     res.status(500).json({ error: error.message });
   }
 }

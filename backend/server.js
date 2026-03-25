@@ -20,6 +20,8 @@ app.use(cors({
 }));
 app.use(express.json());
 
+app.use('/api', router);
+
 // connecting to MONGODB and getting collection reference to use in the vector store
 const collection = await connectDB();
 
@@ -41,6 +43,6 @@ router.post('/reset-knowledge',async (req,res)=>{
   await Reset(req,res,collection);
 })
 
-app.use('/api', router);
+
 
 app.listen(PORT, () => console.log("🚀 RAG Backend running on http://localhost:" + PORT));
