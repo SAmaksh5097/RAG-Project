@@ -1,8 +1,10 @@
 import { useState, useMemo } from 'react'
+import { useAuth } from '@clerk/react'
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:5000'
 
 const IngestForm = ({ onSuccess, onError }) => {
+  const { userId } = useAuth()
   const [knowledgeText, setKnowledgeText] = useState('')
   const [isIngesting, setIsIngesting] = useState(false)
 
@@ -18,13 +20,19 @@ const IngestForm = ({ onSuccess, onError }) => {
       return
     }
 
+    if (!userId) {
+      onError('Please sign in to ingest knowledge.')
+      setIsIngesting(false)
+      return
+    }
+
     try {
       const response = await fetch(`${API_BASE}/api/ingest`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ text: knowledgeText }),
+        body: JSON.stringify({ text: knowledgeText, userId }),
       })
 
       const data = await response.json()

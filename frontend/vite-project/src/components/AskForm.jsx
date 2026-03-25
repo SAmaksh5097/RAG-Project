@@ -1,9 +1,11 @@
 import { useState, useMemo, useRef, useEffect } from 'react'
+import { useAuth } from '@clerk/react'
 import MessageCard from './MessageCard'
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:5000'
 
 const AskForm = ({ onError, onAnswer }) => {
+  const { userId } = useAuth()
   const [question, setQuestion] = useState('')
   const [isAsking, setIsAsking] = useState(false)
   const [conversation, setConversation] = useState([])
@@ -29,6 +31,12 @@ const AskForm = ({ onError, onAnswer }) => {
       return
     }
 
+    if (!userId) {
+      onError('Please sign in to ask questions.')
+      setIsAsking(false)
+      return
+    }
+
     // Add user question to conversation
     const userMessage = { type: 'question', text: question }
     setConversation((prev) => [...prev, userMessage])
@@ -39,11 +47,12 @@ const AskForm = ({ onError, onAnswer }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ question }),
+        body: JSON.stringify({ question, userId }),
       })
 
       const data = await response.json()
       if (!response.ok) {
+        alert(data.message)
         throw new Error(data.error ?? 'Unable to fetch an answer.')
       }
 
