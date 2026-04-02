@@ -21,7 +21,7 @@ const IngestForm = ({ onSuccess, onError }) => {
     }
 
     if (!userId) {
-      onError('Please sign in to ingest knowledge.')
+      alert('Please login first!')
       setIsIngesting(false)
       return
     }
@@ -37,10 +37,12 @@ const IngestForm = ({ onSuccess, onError }) => {
 
       const data = await response.json()
       if (!response.ok) {
+        alert('Failed to ingest text. Please try again.')
         throw new Error(data.error ?? 'Failed to ingest text.')
       }
 
-      onSuccess(data.message ?? 'Knowledge base updated.')
+      alert(data.message ?? 'Knowledge base updated.')
+      onSuccess(data.message ?? alert('Knowledge base updated.'))
       setKnowledgeText('')
     } catch (ingestError) {
       onError(ingestError.message)

@@ -32,6 +32,7 @@ const AskForm = ({ onError, onAnswer }) => {
     }
 
     if (!userId) {
+      alert('Please login first!')
       onError('Please sign in to ask questions.')
       setIsAsking(false)
       return
